@@ -41,4 +41,5 @@ FIXME: ADD COPY
 # THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 from . import jtkinter
+from .jtkinter import filedialog
 from . import notebook_tools

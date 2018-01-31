@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import tkinter
 from tkinter.filedialog import Open, Directory, SaveAs
