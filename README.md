@@ -1,7 +1,3 @@
-# Python Package Template
+# guipyter
 
-A template for python packages.
-
-## To do list
-
-- [] Add twine uploading instructions.
+GUI tools for Jupyter
