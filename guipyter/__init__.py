@@ -42,4 +42,6 @@ FIXME: ADD COPY
 
 from . import jtkinter
 from .jtkinter import filedialog
+from . import utils
+from .utils import DataLoader
 from . import notebook_tools
