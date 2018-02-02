@@ -25,10 +25,8 @@ class DataLoader(object):
         if self.source_file_ext == ".xls" or self.source_file_ext == ".xlsx":
 
             try:
-                # Excel files are so special that need to be read by a different function.
-                # NOTE: Only the first sheet in the file will be read.
-                # self.raw = pd.read_excel(self.buffer.name)
-                self.raw = read_excel_cli(self.buffer.name, **kwargs)
+                # Excel files are so special.
+                self.raw = CLITools.read_excel_cli(self.buffer.name, **kwargs)
 
             except ValueError as e:
                 print(e.args[0])
