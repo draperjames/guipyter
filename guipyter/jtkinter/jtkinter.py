@@ -36,7 +36,7 @@ def root_topmost():
 
 
 class filedialog(object):
-    """Jupyter Notebook freindly tkinter filedialogs."""
+    """Jupyter Notebook friendly tkinter filedialogs."""
     # The following functions have been modified from the following;
 
     # https://github.com/python/cpython/blob/3.6/Lib/tkinter/filedialog.py

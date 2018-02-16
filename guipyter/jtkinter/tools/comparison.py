@@ -10,15 +10,19 @@ class ComparisonSelector(object):
     def __init__(self, root=None, numerator=None, denominator=None, title=None):
         self.root = root or tkinter.Tk()
         relative_position(self.root)
+
         self.root.grid_columnconfigure(0, weight=1)
+
         self.root.grid_rowconfigure(0, weight=1)
 
         self._title = title or "Comparison"
+
         self._numerator = numerator or list()
+
         self._denominator = denominator or list()
 
-
         self.main_frame = ttk.Frame(self.root)
+
         self.main_frame.grid(column=0, row=0)
 
         self.title_frame = ttk.Frame(self.main_frame)
@@ -30,7 +34,9 @@ class ComparisonSelector(object):
         self.title.grid(column=0, row=0, pady=10)
 
         self.numerator_frame()
+
         self.denominator_frame()
+
         self.select_button()
 
     def numerator_frame(self):
@@ -70,16 +76,16 @@ class ComparisonSelector(object):
         return numerator, denominator
 
 
-if __name__ == "__main__":
-    import string
-
-    def rand_characters(n, chars):
-        return ''.join([random.choice(chars) for i in range(n)])
-
-    def rand_char_list(members, char_len, chars):
-        return [rand_characters(char_len, chars) for i in range(members)]
-
-    rand_list = rand_char_list(10, 10, string.ascii_uppercase)
-
-    root = root_topmost()
-    content = ComparisonSelector(root, rand_list, randlist)
+# if __name__ == "__main__":
+#     import string
+#
+#     def rand_characters(n, chars):
+#         return ''.join([random.choice(chars) for i in range(n)])
+#
+#     def rand_char_list(members, char_len, chars):
+#         return [rand_characters(char_len, chars) for i in range(members)]
+#
+#     rand_list = rand_char_list(10, 10, string.ascii_uppercase)
+#
+#     root = root_topmost()
+#     content = ComparisonSelector(root, rand_list, randlist)
