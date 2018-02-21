@@ -39,9 +39,17 @@ FIXME: ADD COPY
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 # TORT OR OTHERWISE, ARISING FROM. OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
 # THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+import os
 from . import jtkinter
 from .jtkinter import filedialog
 from . import utils
 from .utils import DataLoader
 from . import notebook_tools
+
+def find_path():
+    """Find the location of omin package in any given file system."""
+    __dir_path__ = os.path.dirname(os.path.realpath(__file__))
+    return __dir_path__
+
+with open(os.path.join(find_path(), '__version__')) as f:
+    __version__ = f.read().strip()
