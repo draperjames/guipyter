@@ -7,21 +7,28 @@ from .cli_tools import CLITools
 from ..jtkinter import filedialog
 
 class DataLoader(object):
-    """
+    """Multi-purpose dataloading tools.
     """
 
     def __init__(self, *args, **kwargs):
-        self.source_file_name = None
+        self.file_name = None
         self.raw = None
         self.buffer = filedialog.askopenfile()
+        self.file_name = ''
+        self.file_path = ''
+        try:
+            self.file_path = self.buffer.name
+
+        except AttributeError as err:
+            print(err.args[0])
 
         try:
-            self.source_file_name = self.buffer.name
+            self.file_name = os.path.split(self.file_path)[-1]
+        except Exception as err:
+            print(err.args[0])
 
-        except AttributeError as e:
-            print(e.args[0])
         # Get the file extension.
-        self.source_file_ext = os.path.splitext(self.source_file_name)[-1]
+        self.file_ext = os.path.splitext(self.file_name)[-1]
         # Sort out the parameters.
         read_table_params = inspect.signature(pd.read_table)
         read_excel_params = inspect.signature(pd.read_excel)
@@ -38,12 +45,11 @@ class DataLoader(object):
             if k in read_excel_params:
                 read_excel_params_final[k]=v
 
-        if self.source_file_ext == ".xls" or self.source_file_ext == ".xlsx":
+        if self.file_ext == ".xls" or self.file_ext == ".xlsx":
 
             try:
                 # Excel files are so special.
                 # The CLI will allow the user to select a page in an excel file.
-
                 self.raw = CLITools.read_excel_cli(self.buffer.name,
                                                    **read_excel_params_final)
 
