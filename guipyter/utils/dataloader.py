@@ -2,7 +2,13 @@
 import os
 import xlrd
 import inspect
-import pandas as pd
+
+# Try to import pandas from pandomics
+try:
+    from panomics import pandas as pd
+except ImportError as err:
+    import pandas as pd
+
 from .cli_tools import CLITools
 from ..jtkinter import filedialog
 
