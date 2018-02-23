@@ -19,40 +19,58 @@ class DataLoader(object):
     def __init__(self, *args, **kwargs):
         self.file_name = None
         self.raw = None
-        self.buffer = filedialog.askopenfile()
+        self.buffer = None
         self.file_name = ''
         self.file_path = ''
-        try:
-            self.file_path = self.buffer.name
+        self.file_ext = ''
 
-        except AttributeError as err:
-            print(err.args[0])
-
-        try:
-            self.file_name = os.path.split(self.file_path)[-1]
-        except Exception as err:
-            print(err.args[0])
-
-        # Get the file extension.
-        self.file_ext = os.path.splitext(self.file_name)[-1]
         # Sort out the parameters.
         read_table_params = inspect.signature(pd.read_table)
         read_excel_params = inspect.signature(pd.read_excel)
         read_excel_params = set(read_excel_params.parameters.keys())
         read_table_params = set(read_table_params.parameters.keys())
+        filedialog_params = set(["defaultextension", "filetypes", "initialdir", "initialfile", "multiple", "parent", "title", "typevariable"])
+
         # pd.read_table params collected here
         read_table_params_final = dict()
         for k,v in kwargs.items():
             if k in read_table_params:
                 read_table_params_final[k]=v
+
         # pd.read_excel params collected here
         read_excel_params_final = dict()
         for k,v in kwargs.items():
             if k in read_excel_params:
                 read_excel_params_final[k]=v
 
-        if self.file_ext == ".xls" or self.file_ext == ".xlsx":
+        # filedialog params collected here.
+        filedialog_params_final = dict()
+        for k,v in kwargs.items():
+            if k in filedialog_params:
+                filedialog_params_final[k]=v
 
+        # Set the file buffer.
+        self.buffer = filedialog.askopenfile(filedialog_params_final)
+
+        # Try to collect the file path.
+        try:
+            self.file_path = self.buffer.name
+        except AttributeError as err:
+            print(err.args[0])
+
+        # Try to collect the file name.
+        try:
+            self.file_name = os.path.split(self.file_path)[-1]
+        except Exception as err:
+            print(err.args[0])
+
+        # try to collect the file extension.
+        try:
+            self.file_ext = os.path.splitext(self.file_name)[-1]
+        except Exception as err:
+            print(err.args[0])
+
+        if self.file_ext == ".xls" or self.file_ext == ".xlsx":
             try:
                 # Excel files are so special.
                 # The CLI will allow the user to select a page in an excel file.
