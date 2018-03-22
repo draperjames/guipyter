@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""
+guipyter.utils.DataLoader
+=========================
+
+Provides tools to quickly funnel data in and out of Jupyter Notebooks.
+"""
+
 import _io
 import os
 import xlrd

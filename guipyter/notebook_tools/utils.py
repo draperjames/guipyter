@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+guipyter.notebook_tools.utils
+=============================
+
+Provides tools for manganging Jupyter Notebooks from inside a notebook.
+"""
 import os
 import re
 import glob
