@@ -10,8 +10,8 @@ here = os.getcwd()
 def conditional_kwargs(**nkwargs):
     """Returns function with conditionally supplied kwargs.
 
-    This decorator is intended for use with higher level functions that
-    act more like wrappers for other functions or classes.
+    If a given keyword argument has not been supplied in the function
+    definition then the keyword from the decorator will be substituted in.
     """
     def decorator(some_function):
         def wrapper(nkwargs=nkwargs, *args, **kwargs):

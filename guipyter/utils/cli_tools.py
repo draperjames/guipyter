@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import xlrd
-import pandas as pd
+# import pandas as pd
+from pandomics import pandas as pd
 
 class CLITools(object):
     """Command Line Interface Tools.
