@@ -3,73 +3,80 @@
 See:
 https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
+https://github.com/genepattern/genepattern-notebook/blob/master/setup.py
 """
-
-from setuptools import setup, find_packages
 import os
+from setuptools import setup, find_packages
+from setuptools.command.install import install as _install
+from setuptools.command.develop import develop as _develop
+
+
 here = os.getcwd()
 
 with open(os.path.join(here, 'guipyter', '__version__')) as f:
     __version__ = f.read().strip()
 
+
+
+def _post_install():
+    """After installing the python module enable the nbextensions.
+
+    Inspired by https://github.com/genepattern/genepattern-notebook/blob/master/setup.py.
+    """
+    import subprocess
+    from distutils import log
+    log.set_verbosity(log.DEBUG)
+
+    try:
+        # Enable the required nbextensions for ipywidgets and nbtools
+        subprocess.call(["jupyter", "nbextension", "install", "--user", "--py", "guipyter.fileupload"])
+        subprocess.call(["jupyter", "nbextension", "enable", "--user", "--py", "guipyter.fileupload"])
+    except:
+        log.warn("Unable to automatically enable GenePattern extension for Jupyter.\n" +
+                 "Please manually enable the extension by running the following commands:\n" +
+                 "jupyter nbextension install --user --py guipyter.fileupload\n" +
+                  "jupyter nbextension enable --user --py guipyter.fileupload")
+
+class GuipyterInstall(_install):
+    def run(self):
+        _install.run(self)
+        self.execute(_post_install, [], msg="Running post install task")
+
+
+class GuipyterDevelop(_develop):
+    def run(self):
+        _develop.run(self)
+        self.execute(_post_install, [], msg="Running post develop task")
+
+
 setup(
     name='guipyter',
-
-    # Versions should comply with PEP440.  For a discussion on single-sourcing
-    # the version across setup.py and the project code, see
-    # https://packaging.python.org/en/latest/single_source_version.html
     version=__version__,
-
     description="GUI tools for jupyter notebook.",
     # The project's main homepage.
     url='https://github.com/draperjames/guipyter',
-
     # Author details
     author='James Draper',
     author_email='james.draper@duke.edu',
-
     # Choose your license
     license='MIT',
-
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        # How mature is this project? Common values are
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
         'Development Status :: 3 - Alpha',
-
-        # Indicate who your project is intended for
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
-
-        # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',
-
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
 
-    # What does your project relate to?
     keywords='Jupyter Notebook',
-
-    # You can just specify the packages manually here if your project is
-    # simple. Or you can use find_packages().
     packages=find_packages(),
     package_data = {'guipyter': ['__version__'],},
-    # List run-time dependencies here.  These will be installed by pip when
-    # your project is installed. For an analysis of "install_requires" vs pip's
-    # requirements files see:
-    # https://packaging.python.org/en/latest/requirements.html
     install_requires=['pandas', 'xlrd'],
+    cmdclass={'install': GuipyterInstall, "develop":GuipyterDevelop},
 
-
-    # To provide executable scripts, use entry points in preference to the
-    # "scripts" keyword. Entry points provide cross-platform support and allow
-    # pip to create the appropriate form of executable for the target platform.
     # entry_points={
     #     'console_scripts': [
     #         'guipyter=guipyter:main'

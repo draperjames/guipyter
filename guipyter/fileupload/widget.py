@@ -12,8 +12,9 @@ class FileUploadWidget(ipywidgets.DOMWidget):
 
     label = traitlets.Unicode(help='Label on button.').tag(sync=True)
     filename = traitlets.Unicode(help='Filename of `data`.').tag(sync=True)
-    data_base64 = traitlets.Unicode(help='File content, base64 encoded.'
-                                    ).tag(sync=True)
+
+    data_base64 = traitlets.Unicode(help='File content, base64 encoded.').tag(sync=True)
+
     data = traitlets.Bytes(help='File content.')
 
     def __init__(self, label="Browse", *args, **kwargs):

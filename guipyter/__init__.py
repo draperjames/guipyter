@@ -45,6 +45,7 @@ from .jtkinter import filedialog
 from . import utils
 from .utils import DataLoader
 from . import notebook_tools
+from . import fileupload
 
 def find_path():
     """Find the location of omin package in any given file system."""
