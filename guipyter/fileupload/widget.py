@@ -9,11 +9,12 @@ class FileUploadWidget(ipywidgets.DOMWidget):
     This widget provides file upload using `FileReader`:
 
     https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+    https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications
 
     Attributes
     ----------
-    filename : str
-        Uploaded filename.
+    file_name : str
+        Uploaded file name.
 
     data : bytes
         Uploaded data as bytes.
@@ -25,7 +26,9 @@ class FileUploadWidget(ipywidgets.DOMWidget):
     _view_module = traitlets.Unicode('fileupload').tag(sync=True)
     # Set defaults for traitlet attributes.
     label = traitlets.Unicode(help='Label on button.').tag(sync=True)
-    filename = traitlets.Unicode(help='Filename of `data`.').tag(sync=True)
+    file_name = traitlets.Unicode(help='File name of `data`.').tag(sync=True)
+    # File size in bytes
+    file_size = traitlets.CInt(help='Size of `data`.').tag(sync=True)
     data_base64 = traitlets.Unicode(help='File content, base64 encoded.').tag(sync=True)
     data = traitlets.Bytes(help='File content.')
 

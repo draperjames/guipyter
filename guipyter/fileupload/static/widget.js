@@ -14,6 +14,18 @@ define([
             }
     })();
 
+    //// Attempting to use the StyleModel
+    // var InputButtonStyle = widgets.StyleModel.extend({
+    //   defaults() {
+    //     return _.extend(super.defaults(), {
+    //       _model_name = 'ButtonStyleModel';
+    //       _model_module = '@jupyter-widgets/controls';
+    //       _model_module_version = JUPYTER_CONTROLS_VERSION;
+    //     });
+    //   });
+    // });
+
+
     var FileUploadView = widgets.DOMWidgetView.extend({
 
         render: function render () {
@@ -21,9 +33,11 @@ define([
             FileUploadView.__super__.render.apply(this, arguments);
             var id = _getId();
             var label = this.model.get('label');
+
             this.model.on('change:label', this._handleLabelChange, this);
             var $label = $('<label />')
             .text(label)
+
             .addClass('btn btn-default')
             .attr('for', id)
             .appendTo(this.$el);
@@ -59,7 +73,9 @@ define([
             else {
                 that.send({ event: 'Unable to open file.' });
             }
-            that.model.set('filename', file.name);
+            that.model.set('file_name', file.name);
+            that.touch();
+            that.model.set('file_size', file.size);
             that.touch();
         }
     });
