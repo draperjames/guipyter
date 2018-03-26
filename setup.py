@@ -73,7 +73,7 @@ setup(
 
     keywords='Jupyter Notebook',
     packages=find_packages(),
-    package_data = {'guipyter': ['__version__'],},
+    package_data = {'guipyter': ['__version__', 'fileupload/static/*.js'],},
     install_requires=['pandas', 'xlrd'],
     cmdclass={'install': GuipyterInstall, "develop":GuipyterDevelop},
 
