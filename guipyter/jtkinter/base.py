@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 import os
-import tkinter
+
+try:
+    import tkinter
+except ImportError as err:
+    print(err)
 
 
 def conditional_kwargs(**nkwargs):

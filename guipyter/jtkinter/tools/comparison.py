@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
-import tkinter
-from tkinter import ttk
-from ..base import root_topmost, relative_position, conditional_kwargs
 
+try:
+    import tkinter
+    from tkinter import ttk
+except ImportError as err:
+    print(err)
+
+from ..base import root_topmost, relative_position, conditional_kwargs
 
 
 class ComparisonSelector(object):

@@ -20,6 +20,7 @@ except ImportError as err:
 from .cli_tools import CLITools
 from ..jtkinter import filedialog
 
+
 class DataLoader(object):
     """Multi-purpose dataloading tools.
     """
@@ -52,6 +53,7 @@ class DataLoader(object):
                 read_excel_params_final[k]=v
 
         # filedialog params collected here.
+        # FIXME: Add handling for FileUploadWidget
         filedialog_params_final = dict()
         for k,v in kwargs.items():
             if k in filedialog_params:
@@ -74,6 +76,7 @@ class DataLoader(object):
 
         # If None Set the filepath_or_buffer from filedialog.
         elif self.filepath_or_buffer is None:
+            # FIXME: Add handling for FileUploadWidget
             self.filepath_or_buffer = filedialog.askopenfile(filedialog_params_final)
 
             # Try to collect the file path.

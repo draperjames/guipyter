@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 import os
-import tkinter
-from tkinter.filedialog import Open, Directory, SaveAs
+
+try:
+    import tkinter
+    from tkinter.filedialog import Open, Directory, SaveAs
+except ImportError as err:
+    print(err)
 
 # Find the cureent working directory.
 here = os.getcwd()
