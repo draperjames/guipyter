@@ -34,17 +34,17 @@ class DataLoader(object):
         self.file_ext = ''
 
         # Sort out the parameters.
-        read_table_params = inspect.signature(pd.read_table)
+        read_csv_params = inspect.signature(pd.read_csv)
         read_excel_params = inspect.signature(pd.read_excel)
         read_excel_params = set(read_excel_params.parameters.keys())
-        read_table_params = set(['filepath_or_buffer']) ^ set(read_table_params.parameters.keys())
+        read_csv_params = set(['filepath_or_buffer']) ^ set(read_csv_params.parameters.keys())
         filedialog_params = set(["defaultextension", "filetypes", "initialdir", "initialfile", "multiple", "parent", "title", "typevariable"])
 
-        # pd.read_table params collected here
-        read_table_params_final = dict()
+        # pd.read_csv params collected here
+        read_csv_params_final = dict()
         for k,v in kwargs.items():
-            if k in read_table_params:
-                read_table_params_final[k]=v
+            if k in read_csv_params:
+                read_csv_params_final[k]=v
 
         # pd.read_excel params collected here
         read_excel_params_final = dict()
@@ -115,8 +115,8 @@ class DataLoader(object):
         else:
             try:
                 # This should work with everything else.
-                self.raw = pd.read_table(self.filepath_or_buffer,
-                                         **read_table_params_final)
+                self.raw = pd.read_csv(self.filepath_or_buffer,
+                                         **read_csv_params_final)
 
             except ValueError as e:
                 print(e.args[0])

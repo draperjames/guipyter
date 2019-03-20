@@ -7,7 +7,7 @@ try:
 except ImportError as err:
     print(err)
 
-# Find the cureent working directory.
+# Find the current working directory.
 here = os.getcwd()
 
 
