@@ -6,7 +6,8 @@ https://github.com/pypa/sampleproject
 https://github.com/genepattern/genepattern-notebook/blob/master/setup.py
 """
 import os
-from setuptools import setup, find_packages
+from setuptools import setup
+from setuptools import find_packages
 from setuptools.command.install import install as _install
 from setuptools.command.develop import develop as _develop
 

@@ -48,7 +48,7 @@ from . import notebook_tools
 from . import fileupload
 
 def find_path():
-    """Find the location of omin package in any given file system."""
+    """Find the location of package in any given file system."""
     __dir_path__ = os.path.dirname(os.path.realpath(__file__))
     return __dir_path__
 
